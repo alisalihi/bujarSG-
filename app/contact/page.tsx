@@ -3,38 +3,39 @@ import { Suspense } from 'react'
 import { Globe, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { PageHero } from '@/components/page-hero'
 import { ContactForm } from '@/components/contact-form'
+import { TranslatedText } from '@/components/translated-text'
 import { COMPANY } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
   description:
-    'Get in touch with Bujar SG for a vehicle transport quote from Switzerland to the Balkans. Call, email or message us on WhatsApp.',
+    'Get in touch with Bujar SG for a vehicle transport quote from Switzerland to North Macedonia. Call, email or message us on WhatsApp.',
   alternates: { canonical: '/contact' },
 }
 
 const contactDetails = [
   {
     icon: Phone,
-    label: 'Phone',
+    labelKey: 'contact.phone',
     value: COMPANY.phone,
     href: COMPANY.phoneHref,
   },
   {
     icon: Mail,
-    label: 'Email',
+    labelKey: 'contact.email',
     value: COMPANY.email,
     href: COMPANY.emailHref,
   },
   {
     icon: MessageCircle,
-    label: 'WhatsApp',
-    value: 'Chat with us',
+    labelKey: 'contact.whatsapp',
+    valueKey: 'contact.chat',
     href: COMPANY.whatsapp,
   },
   {
     icon: Globe,
-    label: 'Facebook',
-    value: 'facebook.com/bujarsg',
+    labelKey: 'contact.facebook',
+    valueKey: 'contact.facebookPage',
     href: COMPANY.facebook,
   },
 ]
@@ -43,9 +44,7 @@ export default function ContactPage() {
   return (
     <main>
       <PageHero
-        eyebrow="Contact"
-        title="Let's get your vehicle moving"
-        description="Fill in the form below for a personalised quote, or reach us directly by phone, email or WhatsApp."
+        translationPrefix="contact"
       />
 
       <section className="px-4 py-20 sm:px-6 lg:px-8">
@@ -61,11 +60,11 @@ export default function ContactPage() {
           <div className="flex flex-col gap-6 lg:col-span-2">
             <div className="flex flex-col gap-4 rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
               <h2 className="text-xl font-bold text-foreground">
-                Contact information
+                <TranslatedText id="contact.infoTitle" />
               </h2>
               <ul className="flex flex-col gap-4">
                 {contactDetails.map((item) => (
-                  <li key={item.label}>
+                  <li key={item.labelKey}>
                     <a
                       href={item.href}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
@@ -77,10 +76,14 @@ export default function ContactPage() {
                       </span>
                       <span className="flex flex-col">
                         <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                          {item.label}
+                          <TranslatedText id={item.labelKey} />
                         </span>
                         <span className="text-sm font-semibold text-foreground">
-                          {item.value}
+                          {item.valueKey ? (
+                            <TranslatedText id={item.valueKey} />
+                          ) : (
+                            item.value ?? ''
+                          )}
                         </span>
                       </span>
                     </a>
@@ -92,7 +95,7 @@ export default function ContactPage() {
                   </span>
                   <span className="flex flex-col">
                     <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                      Address
+                      <TranslatedText id="contact.address" />
                     </span>
                     <span className="text-sm font-semibold text-foreground">
                       {COMPANY.address}

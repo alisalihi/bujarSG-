@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next'
 const baseUrl = 'https://bujarsg.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ['', '/about', '/services', '/calculator', '/contact']
+  const routes = ['', '/about', '/services', '/contact']
   const now = new Date()
 
   return routes.map((route) => ({

@@ -1,15 +1,4 @@
-export type DestinationKey =
-  | 'macedonia'
-  | 'albania'
-  | 'kosovo'
-  | 'serbia'
-  | 'bosnia'
-  | 'croatia'
-  | 'other'
-
-export type VehicleType = 'sedan' | 'suv' | 'van' | 'luxury' | 'electric'
-
-export type ServiceType = 'door-to-door' | 'depot-pickup'
+export type DestinationKey = 'macedonia'
 
 export interface RoutePrice {
   min: number
@@ -21,7 +10,6 @@ export interface Destination {
   country: string
   flag: string
   base: RoutePrice
-  deliveryTime: string
   description: string
   coverage: string
 }
@@ -33,27 +21,8 @@ export interface ServiceRoute {
   to: string
   image: string
   description: string
-  deliveryTime: string
   coverage: string
   included: string[]
-}
-
-export interface Testimonial {
-  name: string
-  location: string
-  rating: number
-  review: string
-}
-
-export interface Stat {
-  value: number
-  suffix: string
-  label: string
-}
-
-export interface FaqItem {
-  question: string
-  answer: string
 }
 
 export interface ContactFormData {

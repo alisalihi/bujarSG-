@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import { AlertCircle, CheckCircle2, Loader2, Send } from 'lucide-react'
 import { contactSchema, type ContactSchema } from '@/lib/contact-schema'
 import { DESTINATION_OPTIONS } from '@/lib/constants'
+import { useI18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
@@ -19,6 +20,7 @@ const errorClass = 'mt-1 text-xs font-medium text-destructive'
 
 export function ContactForm() {
   const searchParams = useSearchParams()
+  const { t } = useI18n()
   const [status, setStatus] = useState<Status>('idle')
   const [serverError, setServerError] = useState<string>('')
 
@@ -41,7 +43,7 @@ export function ContactForm() {
     },
   })
 
-  // Prefill from calculator query params.
+  // Prefill from quote links.
   useEffect(() => {
     const origin = searchParams.get('origin')
     const destination = searchParams.get('destination')
@@ -53,15 +55,17 @@ export function ContactForm() {
     if (destination) setValue('destinationCountry', destination)
     if (origin || destination || estimate) {
       const lines = [
-        'I would like to request a quote for vehicle transport.',
-        origin && destination ? `Route: ${origin} → ${destination}` : '',
-        vehicle ? `Vehicle type: ${vehicle}` : '',
-        service ? `Service: ${service}` : '',
-        estimate ? `Estimated price: ${estimate}` : '',
+        t('contact.form.requestIntro'),
+        origin && destination
+          ? `${t('contact.form.route')} ${origin} -> ${destination}`
+          : '',
+        vehicle ? `${t('contact.form.vehicleType')} ${vehicle}` : '',
+        service ? `${t('contact.form.service')} ${service}` : '',
+        estimate ? `${t('contact.form.estimate')} ${estimate}` : '',
       ].filter(Boolean)
       setValue('message', lines.join('\n'))
     }
-  }, [searchParams, setValue])
+  }, [searchParams, setValue, t])
 
   const onSubmit = async (data: ContactSchema) => {
     setStatus('submitting')
@@ -74,17 +78,20 @@ export function ContactForm() {
       })
       if (!res.ok) {
         const json = await res.json().catch(() => ({}))
-        throw new Error(json.error ?? 'Something went wrong.')
+        throw new Error(json.error ?? t('contact.form.errorFallback'))
       }
       setStatus('success')
       reset()
     } catch (err) {
       setStatus('error')
       setServerError(
-        err instanceof Error ? err.message : 'Something went wrong.',
+        err instanceof Error ? err.message : t('contact.form.errorFallback'),
       )
     }
   }
+
+  const fieldError = (field: keyof ContactSchema) =>
+    errors[field] ? t(`contact.form.errors.${field}`) : null
 
   if (status === 'success') {
     return (
@@ -97,18 +104,17 @@ export function ContactForm() {
           <CheckCircle2 className="size-9" />
         </span>
         <h3 className="text-2xl font-bold text-foreground">
-          Thank you for your request!
+          {t('contact.form.successTitle')}
         </h3>
         <p className="max-w-md leading-relaxed text-muted-foreground">
-          We&apos;ve received your details and our team will get back to you
-          shortly with a personalised quote.
+          {t('contact.form.successDescription')}
         </p>
         <button
           type="button"
           onClick={() => setStatus('idle')}
           className="mt-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
         >
-          Send another request
+          {t('contact.form.sendAnother')}
         </button>
       </motion.div>
     )
@@ -123,7 +129,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="fullName" className={labelClass}>
-            Full Name
+            {t('contact.form.fullName')}
           </label>
           <input
             id="fullName"
@@ -133,12 +139,12 @@ export function ContactForm() {
             {...register('fullName')}
           />
           {errors.fullName && (
-            <p className={errorClass}>{errors.fullName.message}</p>
+            <p className={errorClass}>{fieldError('fullName')}</p>
           )}
         </div>
         <div>
           <label htmlFor="email" className={labelClass}>
-            Email
+            {t('contact.form.email')}
           </label>
           <input
             id="email"
@@ -147,14 +153,14 @@ export function ContactForm() {
             className={cn(fieldClass, errors.email && 'border-destructive')}
             {...register('email')}
           />
-          {errors.email && <p className={errorClass}>{errors.email.message}</p>}
+          {errors.email && <p className={errorClass}>{fieldError('email')}</p>}
         </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="phone" className={labelClass}>
-            Phone
+            {t('contact.form.phone')}
           </label>
           <input
             id="phone"
@@ -163,11 +169,11 @@ export function ContactForm() {
             className={cn(fieldClass, errors.phone && 'border-destructive')}
             {...register('phone')}
           />
-          {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
+          {errors.phone && <p className={errorClass}>{fieldError('phone')}</p>}
         </div>
         <div>
           <label htmlFor="originCity" className={labelClass}>
-            Origin City (Switzerland)
+            {t('contact.form.originCity')}
           </label>
           <input
             id="originCity"
@@ -176,7 +182,7 @@ export function ContactForm() {
             {...register('originCity')}
           />
           {errors.originCity && (
-            <p className={errorClass}>{errors.originCity.message}</p>
+            <p className={errorClass}>{fieldError('originCity')}</p>
           )}
         </div>
       </div>
@@ -184,7 +190,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="destinationCountry" className={labelClass}>
-            Destination Country
+            {t('contact.form.destination')}
           </label>
           <select
             id="destinationCountry"
@@ -194,37 +200,37 @@ export function ContactForm() {
             )}
             {...register('destinationCountry')}
           >
-            <option value="">Select a country</option>
+            <option value="">{t('contact.form.destinationPlaceholder')}</option>
             {DESTINATION_OPTIONS.map((d) => (
               <option key={d.value} value={d.label}>
-                {d.label}
+                {t(`destinations.${d.value}`)}
               </option>
             ))}
           </select>
           {errors.destinationCountry && (
-            <p className={errorClass}>{errors.destinationCountry.message}</p>
+            <p className={errorClass}>{fieldError('destinationCountry')}</p>
           )}
         </div>
         <div>
           <label htmlFor="vehicle" className={labelClass}>
-            Vehicle Make &amp; Model
+            {t('contact.form.vehicle')}
           </label>
           <input
             id="vehicle"
             type="text"
-            placeholder="e.g. BMW X5"
+            placeholder={t('contact.form.vehiclePlaceholder')}
             className={cn(fieldClass, errors.vehicle && 'border-destructive')}
             {...register('vehicle')}
           />
           {errors.vehicle && (
-            <p className={errorClass}>{errors.vehicle.message}</p>
+            <p className={errorClass}>{fieldError('vehicle')}</p>
           )}
         </div>
       </div>
 
       <div>
         <label htmlFor="message" className={labelClass}>
-          Message
+          {t('contact.form.message')}
         </label>
         <textarea
           id="message"
@@ -237,7 +243,7 @@ export function ContactForm() {
           {...register('message')}
         />
         {errors.message && (
-          <p className={errorClass}>{errors.message.message}</p>
+          <p className={errorClass}>{fieldError('message')}</p>
         )}
       </div>
 
@@ -256,12 +262,12 @@ export function ContactForm() {
         {status === 'submitting' ? (
           <>
             <Loader2 className="size-4 animate-spin" />
-            Sending...
+            {t('contact.form.sending')}
           </>
         ) : (
           <>
             <Send className="size-4" />
-            Send Request
+            {t('contact.form.submit')}
           </>
         )}
       </button>

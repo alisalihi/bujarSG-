@@ -1,23 +1,19 @@
 import type {
   Destination,
   DestinationKey,
-  FaqItem,
   ServiceRoute,
-  ServiceType,
-  Stat,
-  Testimonial,
-  VehicleType,
 } from './types'
 
 export const COMPANY = {
   name: 'Bujar SG',
-  tagline: 'Reliable Swiss Vehicle Transport To The Balkans',
+  tagline: 'Reliable Swiss Vehicle Transport To North Macedonia',
   phone: '+41 44 123 45 67',
   phoneHref: 'tel:+41441234567',
   email: 'info@bujarsg.com',
   emailHref: 'mailto:info@bujarsg.com',
   whatsapp: 'https://wa.me/41441234567',
-  facebook: 'https://facebook.com/bujarsg',
+  facebook: 'https://www.facebook.com/share/19B9kopeQ2/?mibextid=wwXIfr',
+  tiktok: 'https://www.tiktok.com/@autotransport.b.ameti?_r=1&_t=ZS-99OiJ8ISE7h',
   address: 'Industriestrasse 12, 8005 Zurich, Switzerland',
 } as const
 
@@ -25,16 +21,7 @@ export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/services', label: 'Services' },
-  { href: '/calculator', label: 'Calculator' },
   { href: '/contact', label: 'Contact' },
-] as const
-
-export const ORIGIN_CITIES = [
-  'Zurich',
-  'Geneva',
-  'Bern',
-  'Basel',
-  'Lausanne',
 ] as const
 
 export const DESTINATIONS: Destination[] = [
@@ -43,135 +30,27 @@ export const DESTINATIONS: Destination[] = [
     country: 'North Macedonia',
     flag: '🇲🇰',
     base: { min: 350, max: 500 },
-    deliveryTime: '4–6 days',
     description:
       'Direct vehicle transport from Switzerland to Skopje, Tetovo, Gostivar and all major Macedonian cities.',
     coverage: 'Skopje, Tetovo, Gostivar, Kumanovo, Bitola, Struga',
-  },
-  {
-    key: 'albania',
-    country: 'Albania',
-    flag: '🇦🇱',
-    base: { min: 380, max: 520 },
-    deliveryTime: '5–7 days',
-    description:
-      'Reliable car carrier service to Tirana, Durres and across Albania with full insurance coverage.',
-    coverage: 'Tirana, Durres, Vlore, Shkoder, Elbasan',
-  },
-  {
-    key: 'kosovo',
-    country: 'Kosovo',
-    flag: '🇽🇰',
-    base: { min: 360, max: 490 },
-    deliveryTime: '4–6 days',
-    description:
-      'Professional door-to-door transport to Pristina, Prizren, Peja and the rest of Kosovo.',
-    coverage: 'Pristina, Prizren, Peja, Gjakova, Mitrovica',
-  },
-  {
-    key: 'serbia',
-    country: 'Serbia',
-    flag: '🇷🇸',
-    base: { min: 320, max: 450 },
-    deliveryTime: '3–5 days',
-    description:
-      'Fast and insured vehicle shipping to Belgrade, Novi Sad and throughout Serbia.',
-    coverage: 'Belgrade, Novi Sad, Nis, Kragujevac',
-  },
-  {
-    key: 'bosnia',
-    country: 'Bosnia & Herzegovina',
-    flag: '🇧🇦',
-    base: { min: 310, max: 430 },
-    deliveryTime: '3–5 days',
-    description:
-      'Secure vehicle transport to Sarajevo, Banja Luka, Tuzla and across Bosnia & Herzegovina.',
-    coverage: 'Sarajevo, Banja Luka, Tuzla, Mostar, Zenica',
-  },
-  {
-    key: 'croatia',
-    country: 'Croatia',
-    flag: '🇭🇷',
-    base: { min: 280, max: 400 },
-    deliveryTime: '2–4 days',
-    description:
-      'Premium car carrier service to Zagreb, Split, Rijeka and the Croatian coast.',
-    coverage: 'Zagreb, Split, Rijeka, Osijek, Zadar',
   },
 ]
 
 export const DESTINATION_OPTIONS: { value: DestinationKey; label: string }[] = [
   { value: 'macedonia', label: 'North Macedonia' },
-  { value: 'albania', label: 'Albania' },
-  { value: 'kosovo', label: 'Kosovo' },
-  { value: 'serbia', label: 'Serbia' },
-  { value: 'bosnia', label: 'Bosnia & Herzegovina' },
-  { value: 'croatia', label: 'Croatia' },
-  { value: 'other', label: 'Other Balkan country' },
 ]
 
-export const VEHICLE_OPTIONS: {
-  value: VehicleType
-  label: string
-  modifier: number
-}[] = [
-  { value: 'sedan', label: 'Sedan', modifier: 0 },
-  { value: 'suv', label: 'SUV', modifier: 80 },
-  { value: 'van', label: 'Van', modifier: 80 },
-  { value: 'luxury', label: 'Luxury', modifier: 150 },
-  { value: 'electric', label: 'Electric', modifier: 100 },
-]
-
-export const SERVICE_OPTIONS: {
-  value: ServiceType
-  label: string
-  modifier: number
-}[] = [
-  { value: 'door-to-door', label: 'Door-to-door', modifier: 60 },
-  { value: 'depot-pickup', label: 'Depot pickup', modifier: 0 },
-]
-
-export const HOME_SERVICE_CARDS = [
-  {
-    title: 'Switzerland → Macedonia',
-    description:
-      'Direct, insured transport to Skopje, Tetovo and all of North Macedonia.',
-    href: '/services',
-  },
-  {
-    title: 'Switzerland → Albania',
-    description:
-      'Reliable car carrier service to Tirana, Durres and across Albania.',
-    href: '/services',
-  },
-  {
-    title: 'Switzerland → Kosovo',
-    description:
-      'Door-to-door delivery to Pristina, Prizren, Peja and beyond.',
-    href: '/services',
-  },
-  {
-    title: 'Switzerland → Balkans',
-    description:
-      'Serbia, Bosnia, Croatia and the wider Balkans — fully covered.',
-    href: '/services',
-  },
-]
-
-export const SERVICE_ROUTES: ServiceRoute[] = DESTINATIONS.filter(
-  (d) => d.key !== 'other',
-).map((d) => ({
+export const SERVICE_ROUTES: ServiceRoute[] = DESTINATIONS.map((d) => ({
   slug: d.key,
   title: `Switzerland → ${d.country}`,
   from: 'Switzerland',
   to: d.country,
-  image: 'https://picsum.photos/seed/bujarsg-' + d.key + '/800/520',
+  image: '/images/swiss-macedonia-transport.png',
   description: d.description,
-  deliveryTime: d.deliveryTime,
   coverage: d.coverage,
   included: [
-    'Full transport insurance',
-    'GPS tracking',
+    'Secure loading',
+    'Status updates',
     'Professional handling',
     'Door-to-door option',
   ],
@@ -189,14 +68,9 @@ export const INCLUDED_SERVICES = [
       'Drop off and collect your vehicle at one of our secure regional depots for a lower rate.',
   },
   {
-    title: 'Insurance coverage',
+    title: 'Status updates',
     description:
-      'Every transported vehicle is fully insured throughout the entire journey.',
-  },
-  {
-    title: 'GPS tracking',
-    description:
-      'Follow your vehicle in real time from pickup in Switzerland to final delivery.',
+      'Receive clear updates from pickup in Switzerland to final delivery.',
   },
   {
     title: 'Professional handling',
@@ -207,33 +81,33 @@ export const INCLUDED_SERVICES = [
 
 export const WHY_CHOOSE_US = [
   {
-    title: 'Fully Insured Transport',
+    title: 'Careful Vehicle Handling',
     description:
-      'Comprehensive insurance covers your vehicle from pickup to delivery, every single time.',
-    icon: 'ShieldCheck',
+      'Your vehicle is loaded, secured and handled with care from pickup to delivery.',
+    icon: 'BadgeCheck',
   },
   {
-    title: 'GPS Tracking',
+    title: 'Clear Updates',
     description:
-      'Real-time tracking lets you follow your vehicle across every border on its journey.',
+      'Straightforward communication keeps you informed throughout the journey.',
     icon: 'MapPin',
   },
   {
     title: '10+ Years Experience',
     description:
-      'A decade of dedicated experience moving vehicles between Switzerland and the Balkans.',
+      'A decade of dedicated experience moving vehicles between Switzerland and North Macedonia.',
     icon: 'Award',
   },
   {
     title: 'Competitive Pricing',
     description:
-      'Transparent, fair pricing with no hidden fees — get an instant estimate online.',
+      'Transparent, fair pricing with no hidden fees — request a tailored quote online.',
     icon: 'Tag',
   },
   {
     title: 'Professional Drivers',
     description:
-      'Experienced, multilingual drivers who know every route across the Balkans.',
+      'Experienced, multilingual drivers who know the Switzerland to North Macedonia route.',
     icon: 'Truck',
   },
   {
@@ -249,7 +123,7 @@ export const HOW_IT_WORKS = [
     step: 1,
     title: 'Request Quote',
     description:
-      'Use our calculator or contact form to receive a fast, transparent quote tailored to your vehicle and route.',
+      'Use our contact form to receive a fast, transparent quote tailored to your vehicle and route.',
     icon: 'FileText',
   },
   {
@@ -263,40 +137,9 @@ export const HOW_IT_WORKS = [
     step: 3,
     title: 'Safe Delivery',
     description:
-      'Track your vehicle in real time as we deliver it safely to its destination anywhere in the Balkans.',
+      'We keep you updated as your vehicle is delivered safely to its destination in North Macedonia.',
     icon: 'PackageCheck',
   },
-]
-
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    name: 'Arben Krasniqi',
-    location: 'Zurich → Skopje',
-    rating: 5,
-    review:
-      'Bujar SG transported my car from Zurich to Skopje faster than promised. The whole process was professional and I could track everything. Highly recommend to the diaspora!',
-  },
-  {
-    name: 'Lirim Hoxha',
-    location: 'Geneva → Tirana',
-    rating: 5,
-    review:
-      'Excellent service from Geneva to Tirana. The team kept me informed at every step and my vehicle arrived without a scratch. Fair price and fully insured.',
-  },
-  {
-    name: 'Fatmir Berisha',
-    location: 'Basel → Pristina',
-    rating: 5,
-    review:
-      'I have used Bujar SG twice now from Basel to Pristina. Reliable, honest and always on time. This is the company every Balkan family in Switzerland should trust.',
-  },
-]
-
-export const STATS: Stat[] = [
-  { value: 10, suffix: '+', label: 'Years Experience' },
-  { value: 5000, suffix: '+', label: 'Vehicles Delivered' },
-  { value: 8, suffix: '', label: 'Countries Served' },
-  { value: 98, suffix: '%', label: 'Customer Satisfaction' },
 ]
 
 export const VALUES = [
@@ -312,76 +155,18 @@ export const VALUES = [
   },
   {
     title: 'Safety',
-    description: 'Your vehicle is fully insured and handled with care.',
+    description: 'Your vehicle is handled carefully from pickup to delivery.',
     icon: 'ShieldCheck',
   },
   {
     title: 'Professionalism',
-    description: 'A dedicated, experienced team focused on your satisfaction.',
+    description: 'A dedicated, experienced team focused on dependable service.',
     icon: 'BadgeCheck',
-  },
-]
-
-export const TEAM = [
-  {
-    name: 'Bujar Selimi',
-    role: 'Founder & CEO',
-    image: 'https://picsum.photos/seed/bujarsg-team1/400/400',
-  },
-  {
-    name: 'Driton Aliu',
-    role: 'Head of Logistics',
-    image: 'https://picsum.photos/seed/bujarsg-team2/400/400',
-  },
-  {
-    name: 'Valon Krasniqi',
-    role: 'Fleet Manager',
-    image: 'https://picsum.photos/seed/bujarsg-team3/400/400',
-  },
-  {
-    name: 'Egzon Morina',
-    role: 'Customer Relations',
-    image: 'https://picsum.photos/seed/bujarsg-team4/400/400',
   },
 ]
 
 export const CERTIFICATIONS = [
   'Swiss Transport License',
-  'CMR Insurance Certified',
   'EU Logistics Compliant',
-  'ISO 9001 Quality',
   'Bonded Carrier',
-]
-
-export const FAQS: FaqItem[] = [
-  {
-    question: 'How long does transportation take?',
-    answer:
-      'Delivery times depend on the destination. Croatia typically takes 2–4 days, while Macedonia, Albania and Kosovo take 4–7 days. You will receive an exact estimate with your quote.',
-  },
-  {
-    question: 'Is insurance included?',
-    answer:
-      'Yes. Every vehicle we transport is fully insured for the entire journey at no extra cost. We provide documentation confirming coverage before pickup.',
-  },
-  {
-    question: 'Can I transport non-running vehicles?',
-    answer:
-      'Yes, we can transport non-running vehicles using specialized equipment. Please mention this when requesting your quote so we can arrange the right carrier.',
-  },
-  {
-    question: 'How does pickup work?',
-    answer:
-      'With door-to-door service we collect the vehicle directly from your Swiss address. With depot pickup, you drop it off at one of our secure regional depots for a lower rate.',
-  },
-  {
-    question: 'What documents are required?',
-    answer:
-      'You will need the vehicle registration, a copy of your ID, and a signed transport authorization. For customs, we guide you through any additional paperwork required for your destination.',
-  },
-  {
-    question: 'How do I track my vehicle?',
-    answer:
-      'Once your vehicle is loaded, you receive a tracking link to follow its location in real time, plus updates at every major checkpoint until delivery.',
-  },
 ]

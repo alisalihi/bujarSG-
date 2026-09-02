@@ -4,10 +4,13 @@ import { motion } from 'framer-motion'
 import { FileText, PackageCheck, Truck } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
 import { HOW_IT_WORKS } from '@/lib/constants'
+import { useI18n } from '@/lib/i18n'
 
 const icons = { FileText, Truck, PackageCheck } as const
 
 export function HowItWorks() {
+  const { t } = useI18n()
+
   return (
     <section id="how-it-works" className="bg-muted px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
@@ -15,6 +18,7 @@ export function HowItWorks() {
           eyebrow="How It Works"
           title="Three simple steps to ship your vehicle"
           description="From your first quote to safe delivery, we keep the entire process transparent and stress-free."
+          translationPrefix="how"
         />
 
         <div className="relative mt-16">
@@ -40,10 +44,10 @@ export function HowItWorks() {
                     </span>
                   </span>
                   <h3 className="mt-6 text-xl font-bold text-foreground">
-                    {item.title}
+                    {t(`how.steps.${i}.title`)}
                   </h3>
                   <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                    {item.description}
+                    {t(`how.steps.${i}.description`)}
                   </p>
                 </motion.div>
               )

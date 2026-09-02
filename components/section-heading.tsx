@@ -1,12 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useI18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 
 interface SectionHeadingProps {
   eyebrow?: string
   title: string
   description?: string
+  eyebrowKey?: string
+  titleKey?: string
+  descriptionKey?: string
+  translationPrefix?: string
   align?: 'left' | 'center'
   className?: string
 }
@@ -15,9 +20,30 @@ export function SectionHeading({
   eyebrow,
   title,
   description,
+  eyebrowKey,
+  titleKey,
+  descriptionKey,
+  translationPrefix,
   align = 'center',
   className,
 }: SectionHeadingProps) {
+  const { t } = useI18n()
+  const headingEyebrow = eyebrowKey
+    ? t(eyebrowKey)
+    : translationPrefix
+      ? t(`${translationPrefix}.eyebrow`)
+      : eyebrow
+  const headingTitle = titleKey
+    ? t(titleKey)
+    : translationPrefix
+      ? t(`${translationPrefix}.title`)
+      : title
+  const headingDescription = descriptionKey
+    ? t(descriptionKey)
+    : translationPrefix
+      ? t(`${translationPrefix}.description`)
+      : description
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -30,17 +56,17 @@ export function SectionHeading({
         className,
       )}
     >
-      {eyebrow ? (
+      {headingEyebrow ? (
         <span className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-widest text-accent-foreground">
-          {eyebrow}
+          {headingEyebrow}
         </span>
       ) : null}
       <h2 className="text-balance text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-        {title}
+        {headingTitle}
       </h2>
-      {description ? (
+      {headingDescription ? (
         <p className="text-pretty leading-relaxed text-muted-foreground">
-          {description}
+          {headingDescription}
         </p>
       ) : null}
     </motion.div>

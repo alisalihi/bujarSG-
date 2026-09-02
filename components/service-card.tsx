@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, MapPin } from 'lucide-react'
+import { useI18n } from '@/lib/i18n'
 
 interface ServiceCardProps {
   title: string
@@ -17,6 +18,8 @@ export function ServiceCard({
   href,
   index = 0,
 }: ServiceCardProps) {
+  const { t } = useI18n()
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 28 }}
@@ -36,7 +39,7 @@ export function ServiceCard({
         href={href}
         className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-[oklch(0.44_0.18_27)]"
       >
-        Learn more
+        {t('servicesOverview.learnMore')}
         <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
       </Link>
     </motion.div>

@@ -1,14 +1,30 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useI18n } from '@/lib/i18n'
 
 interface PageHeroProps {
-  eyebrow: string
-  title: string
-  description: string
+  eyebrow?: string
+  title?: string
+  description?: string
+  translationPrefix?: string
 }
 
-export function PageHero({ eyebrow, title, description }: PageHeroProps) {
+export function PageHero({
+  eyebrow,
+  title,
+  description,
+  translationPrefix,
+}: PageHeroProps) {
+  const { t } = useI18n()
+  const heroEyebrow = translationPrefix
+    ? t(`${translationPrefix}.heroEyebrow`)
+    : eyebrow
+  const heroTitle = translationPrefix ? t(`${translationPrefix}.heroTitle`) : title
+  const heroDescription = translationPrefix
+    ? t(`${translationPrefix}.heroDescription`)
+    : description
+
   return (
     <section className="relative overflow-hidden bg-[oklch(0.21_0.02_264)] px-4 pb-16 pt-32 sm:px-6 lg:px-8">
       <div
@@ -25,7 +41,7 @@ export function PageHero({ eyebrow, title, description }: PageHeroProps) {
           transition={{ duration: 0.4 }}
           className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-white"
         >
-          {eyebrow}
+          {heroEyebrow}
         </motion.span>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -33,7 +49,7 @@ export function PageHero({ eyebrow, title, description }: PageHeroProps) {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mt-5 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
         >
-          {title}
+          {heroTitle}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -41,7 +57,7 @@ export function PageHero({ eyebrow, title, description }: PageHeroProps) {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mx-auto mt-5 max-w-2xl text-pretty leading-relaxed text-white/80"
         >
-          {description}
+          {heroDescription}
         </motion.p>
       </div>
     </section>

@@ -3,15 +3,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, PlayCircle, ShieldCheck, Star, Truck } from 'lucide-react'
+import { ArrowRight, BadgeCheck, MapPin, PlayCircle, Truck } from 'lucide-react'
+import { useI18n } from '@/lib/i18n'
 
 const trustIndicators = [
-  { icon: ShieldCheck, label: 'Fully Insured' },
-  { icon: Truck, label: '5000+ Vehicles' },
-  { icon: Star, label: '98% Satisfaction' },
+  { icon: BadgeCheck, labelKey: 'hero.handling' },
+  { icon: Truck, labelKey: 'hero.vehicles' },
+  { icon: MapPin, labelKey: 'hero.destination' },
 ]
 
 export function HeroSection() {
+  const { t } = useI18n()
+
   return (
     <section className="relative flex min-h-[92vh] items-center overflow-hidden">
       <Image
@@ -33,7 +36,7 @@ export function HeroSection() {
             className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white backdrop-blur-sm"
           >
             <Truck className="size-4 text-primary" />
-            Switzerland → The Balkans
+            {t('hero.badge')}
           </motion.span>
 
           <motion.h1
@@ -42,7 +45,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mt-6 text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
-            Reliable Vehicle Transport From Switzerland To The Balkans
+            {t('hero.title')}
           </motion.h1>
 
           <motion.p
@@ -51,8 +54,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/85"
           >
-            Fast, insured and professional vehicle transportation services
-            across Macedonia, Albania, Kosovo and the Balkans.
+            {t('hero.description')}
           </motion.p>
 
           <motion.div
@@ -62,10 +64,10 @@ export function HeroSection() {
             className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <Link
-              href="/calculator"
+              href="/contact"
               className="group inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-[1.03]"
             >
-              Get a Quote
+              {t('hero.quote')}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
@@ -73,7 +75,7 @@ export function HeroSection() {
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
             >
               <PlayCircle className="size-4" />
-              How It Works
+              {t('hero.how')}
             </Link>
           </motion.div>
 
@@ -85,13 +87,13 @@ export function HeroSection() {
           >
             {trustIndicators.map((item) => (
               <li
-                key={item.label}
+                key={item.labelKey}
                 className="flex items-center gap-2.5 text-sm font-medium text-white/90"
               >
                 <span className="flex size-9 items-center justify-center rounded-lg bg-primary/20 text-primary backdrop-blur-sm">
                   <item.icon className="size-5" />
                 </span>
-                {item.label}
+                {t(item.labelKey)}
               </li>
             ))}
           </motion.ul>

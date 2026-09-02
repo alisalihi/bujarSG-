@@ -4,8 +4,11 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
 import { COMPANY } from '@/lib/constants'
+import { useI18n } from '@/lib/i18n'
 
 export function CTASection() {
+  const { t } = useI18n()
+
   return (
     <section className="px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-[oklch(0.44_0.18_27)] px-6 py-14 text-center shadow-xl sm:px-12 sm:py-20">
@@ -17,11 +20,10 @@ export function CTASection() {
           className="mx-auto flex max-w-2xl flex-col items-center gap-6"
         >
           <h2 className="text-balance text-3xl font-extrabold tracking-tight text-primary-foreground sm:text-4xl">
-            Ready To Ship Your Vehicle?
+            {t('cta.title')}
           </h2>
           <p className="text-pretty leading-relaxed text-primary-foreground/85">
-            Get a fast, transparent quote today and let us handle your vehicle
-            transport from Switzerland to the Balkans — safely and fully insured.
+            {t('cta.description')}
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
             <a
@@ -31,13 +33,13 @@ export function CTASection() {
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-primary shadow-sm transition-transform hover:scale-[1.03]"
             >
               <MessageCircle className="size-4" />
-              WhatsApp Us
+              {t('cta.whatsapp')}
             </a>
             <Link
               href="/contact"
               className="inline-flex items-center justify-center rounded-lg border border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-primary-foreground backdrop-blur-sm transition-colors hover:bg-white/20"
             >
-              Request Quote
+              {t('cta.quote')}
             </Link>
           </div>
         </motion.div>

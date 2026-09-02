@@ -5,6 +5,7 @@ import './globals.css'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { WhatsAppFloatingButton } from '@/components/whatsapp-floating-button'
+import { LanguageProvider } from '@/lib/i18n'
 import { COMPANY } from '@/lib/constants'
 
 const inter = Inter({
@@ -18,17 +19,17 @@ const siteUrl = 'https://bujarsg.com'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Bujar SG — Reliable Vehicle Transport From Switzerland To The Balkans',
+    default: 'Bujar SG — Reliable Vehicle Transport From Switzerland To North Macedonia',
     template: '%s | Bujar SG',
   },
   description:
-    'Fast, insured and professional vehicle transportation services from Switzerland to Macedonia, Albania, Kosovo, Serbia, Bosnia, Croatia and the Balkans.',
+    'Fast, reliable and professional vehicle transportation services from Switzerland to North Macedonia.',
   keywords: [
-    'vehicle transport Switzerland Balkans',
+    'vehicle transport Switzerland North Macedonia',
     'car transport Switzerland Macedonia',
-    'auto transport Albania Kosovo',
+    'auto transport Switzerland Skopje',
     'car carrier Switzerland',
-    'Balkan vehicle shipping',
+    'North Macedonia vehicle shipping',
     'Bujar SG',
   ],
   authors: [{ name: 'Bujar SG' }],
@@ -41,9 +42,9 @@ export const metadata: Metadata = {
     locale: 'en_CH',
     url: siteUrl,
     siteName: 'Bujar SG',
-    title: 'Reliable Vehicle Transport From Switzerland To The Balkans',
+    title: 'Reliable Vehicle Transport From Switzerland To North Macedonia',
     description:
-      'Fast, insured and professional vehicle transportation services across Macedonia, Albania, Kosovo and the Balkans.',
+      'Fast, reliable and professional vehicle transportation services from Switzerland to North Macedonia.',
     images: [
       {
         url: '/images/hero-truck.png',
@@ -55,9 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Reliable Vehicle Transport From Switzerland To The Balkans',
+    title: 'Reliable Vehicle Transport From Switzerland To North Macedonia',
     description:
-      'Fast, insured and professional vehicle transportation services across the Balkans.',
+      'Fast, reliable and professional vehicle transportation services from Switzerland to North Macedonia.',
     images: ['/images/hero-truck.png'],
   },
   robots: {
@@ -77,18 +78,11 @@ const jsonLd = {
   '@type': 'MovingCompany',
   name: 'Bujar SG',
   description:
-    'Professional vehicle transportation from Switzerland to the Balkans.',
+    'Professional vehicle transportation from Switzerland to North Macedonia.',
   url: siteUrl,
   telephone: COMPANY.phone,
   email: COMPANY.email,
-  areaServed: [
-    'North Macedonia',
-    'Albania',
-    'Kosovo',
-    'Serbia',
-    'Bosnia and Herzegovina',
-    'Croatia',
-  ],
+  areaServed: ['North Macedonia'],
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'CH',
@@ -109,10 +103,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Navbar />
-        {children}
-        <Footer />
-        <WhatsAppFloatingButton />
+        <LanguageProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <WhatsAppFloatingButton />
+        </LanguageProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

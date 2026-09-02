@@ -3,18 +3,19 @@
 import { motion } from 'framer-motion'
 import {
   Award,
+  BadgeCheck,
   Home,
   MapPin,
-  ShieldCheck,
   Tag,
   Truck,
   type LucideIcon,
 } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
 import { WHY_CHOOSE_US } from '@/lib/constants'
+import { useI18n } from '@/lib/i18n'
 
 const icons: Record<string, LucideIcon> = {
-  ShieldCheck,
+  BadgeCheck,
   MapPin,
   Award,
   Tag,
@@ -23,13 +24,16 @@ const icons: Record<string, LucideIcon> = {
 }
 
 export function WhyChooseUs() {
+  const { t } = useI18n()
+
   return (
     <section className="px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Why Choose Us"
-          title="The trusted choice for Balkan vehicle transport"
-          description="Thousands of families across Switzerland rely on Bujar SG for safe, insured and professional vehicle delivery."
+          title="The trusted choice for North Macedonia vehicle transport"
+          description="Families across Switzerland rely on Bujar SG for careful, reliable and professional vehicle delivery to North Macedonia."
+          translationPrefix="why"
         />
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -48,10 +52,10 @@ export function WhyChooseUs() {
                   <Icon className="size-6" />
                 </span>
                 <h3 className="text-lg font-bold text-foreground">
-                  {feature.title}
+                  {t(`why.features.${i}.title`)}
                 </h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  {feature.description}
+                  {t(`why.features.${i}.description`)}
                 </p>
               </motion.div>
             )

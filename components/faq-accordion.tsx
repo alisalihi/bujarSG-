@@ -3,15 +3,22 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Plus } from 'lucide-react'
-import { FAQS } from '@/lib/constants'
+import { useI18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+
+interface FaqCopy {
+  question: string
+  answer: string
+}
 
 export function FAQAccordion() {
   const [open, setOpen] = useState<number | null>(0)
+  const { tArray } = useI18n()
+  const faqs = tArray<FaqCopy>('faq.items')
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-3">
-      {FAQS.map((faq, i) => {
+      {faqs.map((faq, i) => {
         const isOpen = open === i
         return (
           <div
