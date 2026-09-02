@@ -37,6 +37,18 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   openGraph: {
     type: 'website',
     locale: 'en_CH',
@@ -47,10 +59,10 @@ export const metadata: Metadata = {
       'Fast, reliable and professional vehicle transportation services from Switzerland to North Macedonia.',
     images: [
       {
-        url: '/images/hero-truck.png',
+        url: '/images/og-bujar-sg.png',
         width: 1200,
         height: 630,
-        alt: 'Bujar SG red car carrier truck on a Swiss highway',
+        alt: 'Bujar SG vehicle transport from Switzerland to North Macedonia',
       },
     ],
   },
@@ -59,7 +71,7 @@ export const metadata: Metadata = {
     title: 'Reliable Vehicle Transport From Switzerland To North Macedonia',
     description:
       'Fast, reliable and professional vehicle transportation services from Switzerland to North Macedonia.',
-    images: ['/images/hero-truck.png'],
+    images: ['/images/og-bujar-sg.png'],
   },
   robots: {
     index: true,
