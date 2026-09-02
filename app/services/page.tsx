@@ -13,14 +13,21 @@ import { FAQAccordion } from '@/components/faq-accordion'
 import { CTASection } from '@/components/cta-section'
 import { RouteImageGallery } from '@/components/route-image-gallery'
 import { TranslatedText } from '@/components/translated-text'
+import { JsonLd } from '@/components/json-ld'
 import { INCLUDED_SERVICES, SERVICE_ROUTES } from '@/lib/constants'
+import {
+  breadcrumbJsonLd,
+  pageMetadata,
+  serviceFaqJsonLd,
+  transportServiceJsonLd,
+} from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Services & Routes',
+export const metadata: Metadata = pageMetadata({
+  title: 'Vehicle Transport Services Switzerland To North Macedonia',
   description:
-    'Detailed vehicle transport from Switzerland to North Macedonia with door-to-door service and professional handling.',
-  alternates: { canonical: '/services' },
-}
+    'Explore Bujar SG car transport services from Switzerland to North Macedonia, including Zurich to Skopje, Basel to Tetovo and Geneva to Gostivar routes.',
+  path: '/services',
+})
 
 const includedIcons: LucideIcon[] = [
   Home,
@@ -32,6 +39,14 @@ const includedIcons: LucideIcon[] = [
 export default function ServicesPage() {
   return (
     <main>
+      <JsonLd data={transportServiceJsonLd} />
+      <JsonLd data={serviceFaqJsonLd} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Services', path: '/services' },
+        ])}
+      />
       <PageHero
         translationPrefix="servicesPage"
       />
@@ -56,6 +71,27 @@ export default function ServicesPage() {
       </section>
 
       <RouteImageGallery />
+
+      <section className="bg-muted px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary">
+              <TranslatedText id="servicesPage.seoEyebrow" />
+            </p>
+            <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+              <TranslatedText id="servicesPage.seoTitle" />
+            </h2>
+          </div>
+          <div className="grid gap-4 text-base leading-relaxed text-muted-foreground">
+            <p>
+              <TranslatedText id="servicesPage.seoP1" />
+            </p>
+            <p>
+              <TranslatedText id="servicesPage.seoP2" />
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Included services */}
       <section className="px-4 py-20 sm:px-6 lg:px-8">

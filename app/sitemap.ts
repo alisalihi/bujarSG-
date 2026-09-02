@@ -1,15 +1,21 @@
 import type { MetadataRoute } from 'next'
+import { OG_IMAGE, SITE_URL } from '@/lib/seo'
 
-const baseUrl = 'https://bujarsg.com'
+const lastModified = new Date('2026-09-02')
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ['', '/about', '/services', '/contact']
-  const now = new Date()
+  const routes = [
+    { path: '', priority: 1, changeFrequency: 'weekly' as const },
+    { path: '/services', priority: 0.95, changeFrequency: 'weekly' as const },
+    { path: '/contact', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/about', priority: 0.75, changeFrequency: 'monthly' as const },
+  ]
 
   return routes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: route === '' ? 1 : 0.8,
+    url: `${SITE_URL}${route.path}`,
+    lastModified,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+    images: [`${SITE_URL}${OG_IMAGE}`],
   }))
 }

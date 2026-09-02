@@ -13,14 +13,16 @@ import { PageHero } from '@/components/page-hero'
 import { SectionHeading } from '@/components/section-heading'
 import { CTASection } from '@/components/cta-section'
 import { TranslatedText } from '@/components/translated-text'
+import { JsonLd } from '@/components/json-ld'
 import { CERTIFICATIONS, VALUES } from '@/lib/constants'
+import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'About Bujar SG',
+export const metadata: Metadata = pageMetadata({
+  title: 'About Bujar SG Vehicle Transport',
   description:
-    'Learn about Bujar SG, the trusted Swiss vehicle transportation company providing reliable car transport to North Macedonia for over a decade.',
-  alternates: { canonical: '/about' },
-}
+    'Learn about Bujar SG, a Swiss vehicle transport company focused on reliable car transport from Switzerland to North Macedonia.',
+  path: '/about',
+})
 
 const valueIcons: Record<string, LucideIcon> = {
   Clock,
@@ -32,6 +34,12 @@ const valueIcons: Record<string, LucideIcon> = {
 export default function AboutPage() {
   return (
     <main>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'About', path: '/about' },
+        ])}
+      />
       <PageHero
         translationPrefix="about"
       />

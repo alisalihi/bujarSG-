@@ -5,8 +5,16 @@ import './globals.css'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { WhatsAppFloatingButton } from '@/components/whatsapp-floating-button'
+import { JsonLd } from '@/components/json-ld'
 import { LanguageProvider } from '@/lib/i18n'
-import { COMPANY } from '@/lib/constants'
+import {
+  businessJsonLd,
+  OG_IMAGE,
+  seoKeywords,
+  SITE_URL,
+  transportServiceJsonLd,
+  websiteJsonLd,
+} from '@/lib/seo'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -14,26 +22,21 @@ const inter = Inter({
   weight: ['400', '500', '600', '700', '800'],
 })
 
-const siteUrl = 'https://bujarsg.com'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
+  applicationName: 'Bujar SG',
   title: {
-    default: 'Bujar SG — Reliable Vehicle Transport From Switzerland To North Macedonia',
+    default:
+      'Bujar SG | Car Transport Switzerland To North Macedonia',
     template: '%s | Bujar SG',
   },
   description:
-    'Fast, reliable and professional vehicle transportation services from Switzerland to North Macedonia.',
-  keywords: [
-    'vehicle transport Switzerland North Macedonia',
-    'car transport Switzerland Macedonia',
-    'auto transport Switzerland Skopje',
-    'car carrier Switzerland',
-    'North Macedonia vehicle shipping',
-    'Bujar SG',
-  ],
+    'Bujar SG transports cars from Switzerland to North Macedonia, with Swiss pickup and delivery to Skopje, Tetovo, Gostivar and other Macedonian cities.',
+  keywords: seoKeywords,
   authors: [{ name: 'Bujar SG' }],
   creator: 'Bujar SG',
+  publisher: 'Bujar SG',
+  category: 'Vehicle transport',
   alternates: {
     canonical: '/',
   },
@@ -52,14 +55,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_CH',
-    url: siteUrl,
+    alternateLocale: ['de_CH', 'sq_AL', 'mk_MK'],
+    url: SITE_URL,
     siteName: 'Bujar SG',
-    title: 'Reliable Vehicle Transport From Switzerland To North Macedonia',
+    title: 'Bujar SG | Car Transport Switzerland To North Macedonia',
     description:
-      'Fast, reliable and professional vehicle transportation services from Switzerland to North Macedonia.',
+      'Professional car transport from Switzerland to North Macedonia, including Zurich, Basel and Geneva pickup routes to Skopje, Tetovo and Gostivar.',
     images: [
       {
-        url: '/images/og-bujar-sg.png',
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: 'Bujar SG vehicle transport from Switzerland to North Macedonia',
@@ -68,10 +72,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Reliable Vehicle Transport From Switzerland To North Macedonia',
+    title: 'Bujar SG | Car Transport Switzerland To North Macedonia',
     description:
-      'Fast, reliable and professional vehicle transportation services from Switzerland to North Macedonia.',
-    images: ['/images/og-bujar-sg.png'],
+      'Professional car transport from Switzerland to North Macedonia, including Zurich, Basel and Geneva pickup routes.',
+    images: [OG_IMAGE],
+  },
+  other: {
+    'geo.region': 'CH-ZH',
+    'geo.placename': 'Zurich, Switzerland',
+    'business:contact_data:locality': 'Zurich',
+    'business:contact_data:country_name': 'Switzerland',
   },
   robots: {
     index: true,
@@ -85,24 +95,6 @@ export const metadata: Metadata = {
   generator: 'v0.app',
 }
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'MovingCompany',
-  name: 'Bujar SG',
-  description:
-    'Professional vehicle transportation from Switzerland to North Macedonia.',
-  url: siteUrl,
-  telephone: COMPANY.phone,
-  email: COMPANY.email,
-  areaServed: ['North Macedonia'],
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'CH',
-    addressLocality: 'Zurich',
-  },
-  priceRange: '€€',
-}
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -111,10 +103,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} bg-background`}>
       <body className="font-sans antialiased">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={websiteJsonLd} />
+        <JsonLd data={businessJsonLd} />
+        <JsonLd data={transportServiceJsonLd} />
         <LanguageProvider>
           <Navbar />
           {children}

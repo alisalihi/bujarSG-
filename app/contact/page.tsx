@@ -4,14 +4,16 @@ import { Globe, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { PageHero } from '@/components/page-hero'
 import { ContactForm } from '@/components/contact-form'
 import { TranslatedText } from '@/components/translated-text'
+import { JsonLd } from '@/components/json-ld'
 import { COMPANY } from '@/lib/constants'
+import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Contact Us',
+export const metadata: Metadata = pageMetadata({
+  title: 'Get A Car Transport Quote',
   description:
-    'Get in touch with Bujar SG for a vehicle transport quote from Switzerland to North Macedonia. Call, email or message us on WhatsApp.',
-  alternates: { canonical: '/contact' },
-}
+    'Request a Bujar SG quote for vehicle transport from Switzerland to North Macedonia. Contact us for Swiss pickup and delivery to Skopje, Tetovo or Gostivar.',
+  path: '/contact',
+})
 
 const contactDetails = [
   {
@@ -43,6 +45,12 @@ const contactDetails = [
 export default function ContactPage() {
   return (
     <main>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Contact', path: '/contact' },
+        ])}
+      />
       <PageHero
         translationPrefix="contact"
       />

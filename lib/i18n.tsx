@@ -234,6 +234,12 @@ const dictionaries: Record<Locale, Dictionary> = {
             'Professional transport from western Switzerland to Gostivar and nearby towns.',
         },
       ],
+      seoEyebrow: 'Switzerland To North Macedonia',
+      seoTitle: 'Car transport for the Macedonian community in Switzerland',
+      seoP1:
+        'Bujar SG focuses on one clear service: vehicle transport from Switzerland to North Macedonia. We arrange Swiss pickup routes from areas such as Zurich, Basel, Bern, Lausanne and Geneva, then deliver to Macedonian destinations including Skopje, Tetovo, Gostivar, Kumanovo, Bitola and Struga.',
+      seoP2:
+        'Whether you are sending a family car, SUV, van or luxury vehicle, our team keeps the process straightforward with clear communication, careful loading and professional handling from pickup to delivery.',
       includedEyebrow: "What's Included",
       includedTitle: 'Everything you need, included',
       includedDescription:
@@ -570,6 +576,12 @@ const dictionaries: Record<Locale, Dictionary> = {
             'Transport profesional nga Zvicra perendimore drejt Gostivarit dhe qyteteve perreth.',
         },
       ],
+      seoEyebrow: 'Zvicra drejt Maqedonise se Veriut',
+      seoTitle: 'Transport veturash per komunitetin maqedonas ne Zvicer',
+      seoP1:
+        'Bujar SG fokusohet ne nje sherbim te qarte: transport automjetesh nga Zvicra ne Maqedonine e Veriut. Organizojme marrje ne zona si Cyrih, Basel, Bern, Lozane dhe Gjeneve, pastaj dorezojme ne Shkup, Tetove, Gostivar, Kumanove, Manastir dhe Struge.',
+      seoP2:
+        'Nese dergoni veture familjare, SUV, furgon apo automjet luksoz, ekipi yne e mban procesin te thjeshte me komunikim te qarte, ngarkim te kujdesshem dhe trajtim profesional nga marrja deri te dorezimi.',
       includedEyebrow: 'Cfare perfshihet',
       includedTitle: 'Gjithcka qe ju duhet, e perfshire',
       includedDescription:
@@ -902,6 +914,12 @@ const dictionaries: Record<Locale, Dictionary> = {
             'Professionelle Transport vo de Westschwiiz nach Gostivar und i d Region.',
         },
       ],
+      seoEyebrow: 'Schwiiz nach Nordmazedonie',
+      seoTitle: 'Autotransport fur d mazedonischi Community i de Schwiiz',
+      seoP1:
+        'Bujar SG fokussiert sich uf ei klare Service: Fahrzugtransport vo de Schwiiz nach Nordmazedonie. Mir organisiere Abholige i Regionene wie Zurich, Basel, Bern, Lausanne und Geneva und liefered nach Skopje, Tetovo, Gostivar, Kumanovo, Bitola und Struga.',
+      seoP2:
+        'Ob Familienauto, SUV, Van oder Luxusfahrzug: Euses Team haltet de Ablauf eifach mit klarer Kommunikation, sorgfaltiger Ladig und professioneller Handhabig vo de Abholig bis zur Lieferig.',
       includedEyebrow: 'Inklusive',
       includedTitle: 'Alles debi, was du bruchsch',
       includedDescription:
